@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlateMaster</title>
+    <link rel="stylesheet" type="text/css" href="logIn.css">
+</head>
+<body>
+    <!--Form Login-->
+    <form action="logIn.php">
+        <!--Creamos el form de nuestro LogIn-->
+        <div id="logIn">
+            <img src="../../../assets/logIn/logIn.png" alt="Log In">
+            <br>
+            <input type="text" name="user" id="inputUser" placeholder="Usuario" required>
+            <br>
+            <!--Creamos un div para añadir un botón que nos permita ver la contraseña o ocultarla-->
+            <div id="pass">
+                <input type="password" name="password" id="inputPassword" placeholder="Contraseña" required>
+                <button><img src="../../../assets/logIn/hidePassword.png" alt="ege"></button>
+            </div>
+            <br>
+            <input type="submit" name="btn_logIn" value="Iniciar sesión">
+           
+        </div>
+    </form>
+</body>
+</html>
