@@ -13,18 +13,22 @@
             
         </div>
         <!--Form Login-->
-        <form action="logIn.php">
+        <form id="logInForm">
             <!--Creamos el form de nuestro LogIn-->
             <div id="logIn">
                 <img src="../../../assets/logIn/logIn.png" alt="Log In">
                 <br>
-                <input type="text" name="user" id="inputUser" placeholder="Usuario" required>
+                <input type="text" name="user" id="inputUser" placeholder="Usuario">
+                <br>
+                <div id="errorUser" class="error"></div>
                 <br>
                 <!--Creamos un div para añadir un botón que nos permita ver la contraseña o ocultarla-->
                 <div id="pass">
-                    <input id="password" type="password" name="password" placeholder="Contraseña" required>
+                    <input id="password" type="password" name="password" placeholder="Contraseña">
                     <button type="button" onclick=showPassword()><img id="eye" src="../../../assets/logIn/hidePassword.png" alt="ege"></button>
                 </div>
+                <br>
+                <div id="errorPass" class="error"></div>
                 <br>
                 <!--Botón que iniciaría sesión-->
                 <input type="submit" name="btn_logIn" value="Iniciar sesión" id="btnLogIn">
@@ -33,5 +37,5 @@
     </div>
     
 </body>
-<script src="login.js"></script>
+<script src="logIn.js"></script>
 </html>
