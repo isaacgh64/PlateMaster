@@ -3,9 +3,11 @@ body,html{
     height: 100%;
     margin: 0;
 }
+
 #logIn{
   margin: 0 auto;
   margin-top: 100px;
+  margin-bottom: 150px;
   height: 600px;
   width: 600px;
   background-color: white;
@@ -103,7 +105,7 @@ body,html{
     height: 35px;
     border-radius: 20px;
     border: none;
-    background-color: #ec047c;
+    background-color: #8B0000;
     color: white;
 }
 

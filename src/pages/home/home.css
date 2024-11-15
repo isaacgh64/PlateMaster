@@ -5,10 +5,12 @@ body,html{
 }
 /*Comenzamos con nuestra página principal*/
 #principal{
+    margin-top: 40px;
     margin-left: 350px;
     margin-right: 350px;
 }
 #principal h2{
+    
     text-align: center;
     color: #8B0000;
 }
