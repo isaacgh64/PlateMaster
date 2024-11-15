@@ -3,49 +3,39 @@ body,html{
     height: 100%;
     margin: 0;
 }
-
-/*CSS de nuestra cabecera*/
-#header{
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
+/*Comenzamos con nuestra página principal*/
+#principal{
+    margin-left: 350px;
+    margin-right: 350px;
 }
-#header #cabecera{
-    margin-left: 250px;
-    margin-right: 250px;
-    display: flex;  
+#principal h2{
+    text-align: center;
+    color: #8B0000;
+}
+#cuadro1,#cuadro2{
+    margin-top: 20px;
+    display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
 }
-#header #cabecera img{
-    cursor: pointer;
-    height: 80px;
-    width: 100px;
-    display: flex;
-    margin-right: 70px;
+#cuadro1 #texto,#cuadro2 #texto{
+    text-align: justify;
+    width: 450px;
 }
-#header #cabecera h3{
-    height: 30px;
-    width: 125px;
-    display: flex;
-    text-align: center;
-    margin-right: 70px;
-    align-items: center;
-    text-align: center;
+#cuadro1 #texto h3,#cuadro2 #texto h3{
+    color: #8B0000;
 }
-
-#header #cabecera h3 a{
-    display: inline-block;      
-    position: relative;   
-    padding: 10px 30%;      
-    text-decoration: none;
-    color: #3c3c3c;
+#cuadro1 #texto b,#cuadro2 #texto b{
+    color: #8B0000;
 }
-#header #cabecera h3:hover{
-    border-bottom: 2px solid #ec047c;
+#cuadro1 img, #cuadro2 img{
+    margin-top: 50px;
+    height: 300px;
+    width: 400px;
+}
+#cuadro1 #texto{
+    margin-right: 80px;
+}
+#cuadro2 #texto{
+    margin-left: 80px;
 }
