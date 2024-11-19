@@ -1,5 +1,3 @@
-
-
 //Comprobamos que mandamos los datos con AJAX y hacemos las comprobaciones
 document.getElementById("logInForm").addEventListener("submit",function(event){
     //Borramos nuestros valores por defecto
