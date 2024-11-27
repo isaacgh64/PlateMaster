@@ -1,19 +1,4 @@
-body,html{
-    background-color: #F1F1F1;
-    height: 100%;
-    margin: 0;
-}
 /*Comenzamos con nuestra página principal*/
-#principal{
-    margin-top: 40px;
-    margin-left: 350px;
-    margin-right: 350px;
-}
-#principal h2{
-    
-    text-align: center;
-    color: #8B0000;
-}
 #cuadro1,#cuadro2{
     margin-top: 20px;
     display: flex;
