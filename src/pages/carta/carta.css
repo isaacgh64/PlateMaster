@@ -2,7 +2,7 @@
     text-align: center;
     color: #8B0000;
 }
-#menu{
+.menu{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +19,7 @@ img{
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
-#menu #rows #item{
+.menu #rows #item{
     height: 175px;
     width: 440px;
     background-color: white;
@@ -28,17 +28,17 @@ img{
     border-radius: 8px;
     transition: box-shadow 0.3s ease;
 }
-#menu #rows #item:hover{
+.menu #rows #item:hover{
     cursor: pointer;
     box-shadow: 0px 8px 16px rgba(235, 15, 15, 0.5); 
 }
-#menu #rows #item #imge{
+.menu #rows #item #imge{
     float: left;  
 }
-#menu #rows #item #text{
+.menu #rows #item #text{
     padding-left: 220px;
     padding-bottom: 20px;
 }
-#menu #rows #item #text h4, #menu #rows #item #text p{
+.menu #rows #item #text h4, .menu #rows #item #text p{
     color: #8B0000;
 }
