@@ -6,30 +6,48 @@ function loadData(){
         headers:{'Content-Type': 'application/x-www-form-urlencoded'},
    }).then(response => response.json()).then(value=>{
         if(value.status=="200"){
-            console.log(value.id);
-            console.log(value.name);
-            console.log(value.description);
-            console.log(value.image);
-            console.log(value.price);
-            for(var i=0;i<36;i++){
-                var rows = $("<div>").attr("id","rows");
+            for(var i=0;i<24;i++){
+                //Creamos nuestro div contenedor
+                var rows = $("<div></div>").addClass("rows");
                 for(var j=0;j<3;j++){
-                    var item = $("<div>").attr("id",value.id);
-                    item.append("<div>").attr("id","imge").append("<img>").attr("src",value.image).attr("alt",value.name);
-                }
-                rows.append(item);
-                if(i<6){
+                    //Creamos nuestro elemento item
+                    var item = $("<div></div>").addClass("item").attr("id",value.id).attr("onclick","sentData(this)");
                     
+                    //Creamos nuestro div de imagen
+                    var imageContainer = $("<div></div>").addClass("imge");
+                    var src = $("<img>").attr("src",value.image).attr("alt",value.name);
+                    imageContainer.append(src);
+
+                   // Crear el contenedor del texto
+                    var text = $("<div></div>").addClass("text");
+                    text.append($("<h4></h4>").text(value.name));
+                    text.append($("<p></p>").text(value.description));
+                    text.append($("<p></p>").text(`${value.price}.00 €`));
+
+                    // Añadir imagen y texto al ítem
+                    item.append(imageContainer).append(text);
+
+                    // Añadir el ítem a la fila
+                    rows.append(item);
+                }
+                if(i<6){
+                    $("#entrantes").append(rows);
+                }else if(i<12){
+                    $("#pescado").append(rows);
+                }else if(i<18){
+                    $("#carnes").append(rows);
+                }else{
+                    $("#postres").append(rows);
                 }
             }
-            $("#entrantes").append(rows);
         }else{
             alert("Error en BD, no se han podido cargar los datos, intentalo de nuevo más tarde");
         }
    });
 }
-/*function sentData(div){
+function sentData(div){
     //Enviamos los datos a nuestro PHP mediante AJAX
+    console.log("buenas");
     fetch("carta.php",{
         method:"POST",
         headers:{'Content-Type': 'application/x-www-form-urlencoded'},
@@ -42,4 +60,4 @@ function loadData(){
         }
         
     })
-}*/
+}
