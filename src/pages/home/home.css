@@ -1,0 +1,28 @@
+/*Comenzamos con nuestra página principal*/
+#cuadro1,#cuadro2{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#cuadro1 #texto,#cuadro2 #texto{
+    text-align: justify;
+    width: 450px;
+}
+#cuadro1 #texto h3,#cuadro2 #texto h3{
+    color: #8B0000;
+}
+#cuadro1 #texto b,#cuadro2 #texto b{
+    color: #8B0000;
+}
+#cuadro1 img, #cuadro2 img{
+    margin-top: 50px;
+    height: 300px;
+    width: 400px;
+}
+#cuadro1 #texto{
+    margin-right: 80px;
+}
+#cuadro2 #texto{
+    margin-left: 80px;
+}

@@ -1,0 +1,63 @@
+#principal{
+    padding-bottom: 100px;
+}
+.h2{
+    color: #8B0000;
+    font-size: 22pt;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-left: 35%;
+}
+
+#contenido img{
+    float: left;
+    width: 600px;
+    height: 450px;
+    margin-right: 20px;
+}
+#contenido .img{
+    float: left;
+    width: 593px;
+}
+#contenido #texto{
+    margin-left: 15px;
+    font-size: 12pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#contenido #texto #precio{
+    margin-top: 10px;
+    float: left;
+    text-align: center;
+    background-color:green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    
+}
+
+#contenido #texto #image img{
+   padding-top: 15px;
+    width: 56px;
+    height: 80px;
+}
+
+.btnDelete{
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #8B0000;
+    border-radius: 15px;
+    color: white;
+    margin-left: 10px;
+}
+
+.btnUpdate{
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 13%;
+    background-color: white;
+    border-radius: 15px;
+    color: #8B0000;
+}

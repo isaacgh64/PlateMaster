@@ -1,0 +1,50 @@
+input{
+    margin-top: 20px;
+    border: 1px solid #f40409;
+    height: 35px;
+    width: 350px;
+    border-radius: 20px; 
+    text-align: center;
+    color: #8B0000;
+}
+input:focus{
+    border: 3px solid #f40409;
+    outline: none;
+}
+input::placeholder{
+    
+    color: #8B0000;
+    opacity:0.8;
+    
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn_sent{
+    cursor: pointer;
+    margin-top: 20px;
+    border: 1px solid #f40409;
+    height: 35px;
+    width: 350px;
+    border-radius: 20px; 
+    text-align: center;
+   background-color: #8B0000;
+   color: white;
+}
+.error{
+    font-size: 10pt;
+    color: red;
+    margin: 0;
+    margin-top: 5px;
+}
+.reservas{
+    background-color: #8B0000;
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

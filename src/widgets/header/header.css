@@ -1,0 +1,45 @@
+/*CSS de nuestra cabecera*/
+#header{
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+#header #cabecera{
+    margin-left: 250px;
+    margin-right: 250px;
+    display: flex;  
+    flex-direction: row;
+    align-items: center;
+}
+#header #cabecera img{
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    margin-right: 70px;
+}
+#header #cabecera h3{
+    height: 30px;
+    width: 125px;
+    display: flex;
+    text-align: center;
+    margin-right: 70px;
+    align-items: center;
+    text-align: center;
+}
+
+#header #cabecera h3 a{
+    display: inline-block;      
+    position: relative;   
+    padding: 10px 25%;      
+    text-decoration: none;
+    color: #3c3c3c;
+}
+#header #cabecera h3:hover{
+    border-bottom: 2px solid #8B0000;
+}
