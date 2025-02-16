@@ -82,9 +82,11 @@
     text-align: center;
     color: #c00202;
     border: none;
-    height: 35px;
+    height: 33px;
     width: 330px;
     background-color: transparent;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     padding-left: 30px;
 }
 #logIn #pass input:focus, .passInput:focus{
@@ -125,6 +127,10 @@
     margin-bottom: 650px;
     width: 125px;
     height: 30px;
+}
+
+#cerrarSesion,#cambiarPassword{
+    width: 150px;
 }
 
 #formUser{

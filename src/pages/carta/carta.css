@@ -1,10 +1,16 @@
+#principal{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 #principal h3{
     text-align: center;
     color: #8B0000;
 }
 .menu{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
 }
 .rows{
@@ -49,4 +55,9 @@ img{
     color: white;
     margin-bottom: 15px;
     border-radius: 12px;
+}
+
+#entrantes, #pescados, #carnes, #postres{
+    display: flex;
+    flex-wrap: wrap;
 }

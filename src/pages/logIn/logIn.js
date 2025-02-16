@@ -26,32 +26,27 @@ function logIn(event){
     const user = document.getElementById("inputUser").value;
     const password = document.getElementById("password").value;
     //Enviamos los datos a nuestro PHP mediante AJAX
-    console.log(user);
-    console.log(password);
     $.ajax({
         type: "POST",
         url: "logIn.php",
         data: {"username":user,"password":password},
         dataType: "json",
     }).done(function(response){
-        console.log(response);
         if(response.status=="200"){
             window.location.href="logIn.html";
          }
          else if(response.status=="404" || response.status=="500"){
-            document.getElementById("errorUser").innerHTML=response.user;
-            document.getElementById("errorPass").innerHTML=response.pass;
-            
-            document.getElementById("error").innerHTML=response.error;
+            if(response.user!=undefined){
+                document.getElementById("errorUser").innerHTML=response.user;
+            }
+            if(response.pass!=undefined){
+                document.getElementById("errorPass").innerHTML=response.pass;
+            }
+            if(response.error!="undefined"){
+                document.getElementById("error").innerHTML=response.error;
+            }
         }
     });
-    /*fetch("./logIn.php",{
-        method:"POST",
-        headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-        body:`username=${encodeURIComponent(user)}&password=${encodeURIComponent(password)}`,
-    }).then(response => response.json()).then(value=>{
-        
-    })*/
 };
 
 //Función que nos permite ver la contraseña o ocultarla
@@ -167,14 +162,24 @@ function viewSignIn(value){
     $("#contenido").append(form);
 
     
-    $('<button>', { class: 'btn', text: 'Cambiar contraseña'}).attr("onclick","changePassword()").appendTo('#contenido');
+    $('<button>', { class: 'btn', text: 'Cambiar contraseña'}).attr("onclick","changePassword()").attr("id","cambiarPassword").appendTo('#contenido');
     // Crear un botón con clase y texto, y agregarlo al cuerpo
-    $('<button>', { class: 'btn', text: 'Cerrar Sesión'}).attr("onclick","logOut()").appendTo('#contenido');
+    $('<button>', { class: 'btn', text: 'Cerrar Sesión'}).attr("id","cerrarSesion").appendTo('#contenido');
 }
 
-function logOut(){
-    fetch("logOut.php").then(window.location.href="logIn.html");
-}
+$(document).on("click","#cerrarSesion",function(){
+    console.log("Buenas");
+   $.ajax({
+    type: "GET",
+    url: "logOut.php",
+    dataType: "json",
+    success: function (response) {
+        if(response==200){
+            window.location.href="logIn.html";
+        }
+    }
+   }); 
+});
 
 function passwordInput(placeholder,id,idImg){
     const passDiv = $('<div>').attr('id', 'pass').addClass("pass").css("background-color","white");

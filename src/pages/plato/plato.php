@@ -1,39 +1,27 @@
 <?php
     session_start();
+    require_once("../../utils/conexionBD.php");
+    $conexion = conexionBD();
     //Obtener los datos de la BD
     if($_SERVER["REQUEST_METHOD"]=="GET"){
-        $rol = "";
-        if(isset($_SESSION["ROL"])){
-            $rol = $_SESSION["ROL"];
-        }
-        if(isset($_SESSION["ID_ITEM"])&&$_SESSION["ID_ITEM"]!=100){
-             //Obtenemos el id mediante la sessión que hemos creado antes
-            $id =  $_SESSION["ID_ITEM"];
-            //Obtenemos el rol del usuario para mandarlo
-        
-            //Cargamos los datos
-            $data = ["id" => 1,
-            "name"=>"Croquetas",
-            "image"=>"https://imag.bonviveur.com/servimos-las-croquetas-de-jamon-y-queso.jpg",
-            "description"=>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Error consequuntur perferendis corporis ex accusantium minima inventore quam, libero assumenda aspernatur porro dolores deserunt debitis quasi? Nesciunt molestias exercitationem eaque praesentium.
-                        Delectus earum debitis dolorem explicabo recusandae ea, quae architecto repudiandae maiores exercitationem odio illo enim, soluta accusantium placeat doloremque! Laborum aliquam numquam blanditiis facere nulla odit aperiam, nihil illo harum.
-                        Sint beatae, quaerat omnis distinctio iste non quia ad. Delectus laudantium, officia maiores minus eum aliquid quos omnis excepturi eius eos temporibus laborum sunt dolorum recusandae cum earum error nostrum?",
-            "price"=>15.00];
-           
+        $response=[]; 
+        if(isset($_SESSION["ID_ITEM"])&&$_SESSION["ID_ITEM"]!=-1){
+            $id = $_SESSION["ID_ITEM"];
+            //Obtenemos el id mediante la sessión que hemos creado antes
+            try{
+                $consulta = $conexion->query("SELECT * FROM productos WHERE id='".$id."'");
+                $response['status']='200';
+                if(isset($_SESSION["rol"])){
+                    $response["rol"] = $_SESSION["rol"];
+                }
+                $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
+            }catch(Exception $e){
+                $response["status"]='500';
+            } 
         }else{
-            $data = ["id" => 100,
-            "name"=>"",
-            "image"=>"",
-            "description"=>"",
-            "price"=>0];
+            $response["status"]="201";
         }
-        $response=[];
-        $response['status']='200';
-        $response['rol']=$rol;
-        foreach ($data as $key => $value) {
-            $response[$key]=$value;
-        }
-        echo json_encode($response);
+        echo json_encode($response);  
     }
     //Actualizamos el producto
     if($_SERVER["REQUEST_METHOD"]=="POST"){

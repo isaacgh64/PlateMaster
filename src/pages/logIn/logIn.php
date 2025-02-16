@@ -32,7 +32,7 @@
         $pass = $_POST["password"];
         if($user!=""&&$pass!=""){
             //echo "SELECT * FROM usuario WHERE user='".$user."'";
-                $consulta = $conexion->query("SELECT * FROM usuario WHERE user='".$user."'");
+                $consulta = $conexion->query("SELECT user,pass,rol FROM usuario WHERE user='".$user."'");
                 foreach ($consulta as $key => $value) {
                     if(password_verify($pass,$value["pass"])){
                         $response['status']='200';

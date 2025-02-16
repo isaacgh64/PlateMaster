@@ -1,18 +1,20 @@
 <?php
     session_start();
+    require_once("../../utils/conexionBD.php");
+    $conexion = conexionBD();
     if($_SERVER["REQUEST_METHOD"]=="GET"){
-        $data = ["id" => 1,"name"=>"Croquetas","image"=>"https://imag.bonviveur.com/servimos-las-croquetas-de-jamon-y-queso.jpg","description"=>"Descubre el sabor de nuestras increibles croquetas totalmente caseras","price"=>15.00];
         $response=[];
-        $rol = "";
-        if(isset($_SESSION["ROL"])){
-            $rol = $_SESSION["ROL"];
+        try{
+            $consulta = $conexion->query("SELECT * FROM productos");
+            $response['status']='200';
+            if(isset($_SESSION["ROL"])){
+                $response["rol"] = $_SESSION["rol"];
+            }
+            $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
+        }catch(Exception $e){
+            $response["status"]='500';
         }
-        $response['rol']=$rol;
-        $response['status']='200';
-        foreach ($data as $key => $value) {
-            $response[$key]=$value;
-        }
-        echo json_encode($response);
+        echo json_encode($response);    
     }
     //  Comprobamos que estamos mandando los datos por POST para guardarlos en una SESSION
     if($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -28,6 +30,6 @@
         echo json_encode($response);
     }
     if($_SERVER["REQUEST_METHOD"]=="DELETE"){
-        $_SESSION["ID_ITEM"]=100;
+        $_SESSION["ID_ITEM"]=-1;
     }
 ?>

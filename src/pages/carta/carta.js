@@ -1,7 +1,56 @@
 loadData();
 //Llamamos a nuestra BD para cargar los datos de nuestra página web
 function loadData(){
-   fetch("carta.php",{
+    $.ajax({
+        type: "GET",
+        url: "carta.php",
+        dataType: "json",
+        success: function (response) {
+            if(response.status=="200"){
+                response.data.forEach(element => {
+                    var rows = $("<div></div>").addClass("rows");
+                    //Creamos nuestro elemento item
+                    var item = $("<div></div>").addClass("item").attr("id",element.id).attr("onclick","sentData(this)");
+                    
+                    //Creamos nuestro div de imagen
+                    var imageContainer = $("<div></div>").addClass("imge");
+                    var src = $("<img>").attr("src",element.image).attr("alt",element.name);
+                    imageContainer.append(src);
+
+                   // Crear el contenedor del texto
+                    var text = $("<div></div>").addClass("text");
+                    text.append($("<h4></h4>").text(element.name));
+                    text.append($("<p></p>").text(element.description));
+                    text.append($("<p></p>").text(`${element.price} €`));
+
+                    // Añadir imagen y texto al ítem
+                    item.append(imageContainer).append(text);
+
+                    // Añadir el ítem a la fila
+                    rows.append(item);
+                    switch (element.type) {
+                        case "entrantes":
+                            $("#entrantes").append(rows);
+                            break;
+                        case "carne":
+                            $("#carnes").append(rows);
+                            break;
+                        case "pescado":
+                            $("#pescado").append(rows);
+                            break;
+                        case "postre":
+                            $("#postres").append(rows);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }else{
+                alert("Ocurrió  un error en la Base de datos, perdona las molestias");
+            }
+        }
+    });
+   /*fetch("carta.php",{
         method:"GET",
         headers:{'Content-Type': 'application/x-www-form-urlencoded'},
    }).then(response => response.json()).then(value=>{
@@ -55,7 +104,7 @@ function loadData(){
         }else{
             alert("Error en BD, no se han podido cargar los datos, intentalo de nuevo más tarde");
         }
-   });
+   });*/
 }
 function sentData(div){
     //Enviamos los datos a nuestro PHP mediante AJAX
