@@ -7,7 +7,7 @@
         try{
             $consulta = $conexion->query("SELECT * FROM productos");
             $response['status']='200';
-            if(isset($_SESSION["ROL"])){
+            if(isset($_SESSION["rol"])){
                 $response["rol"] = $_SESSION["rol"];
             }
             $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));

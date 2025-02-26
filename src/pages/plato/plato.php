@@ -25,25 +25,30 @@
     }
     //Actualizamos el producto
     if($_SERVER["REQUEST_METHOD"]=="POST"){
-        //Obtenemos el id mediante la sessión que hemos creado antes
-        $id = 100;
-        if(isset( $_SESSION["ID_ITEM"])){
-            $id=$_SESSION["ID_ITEM"];
-        }
         //Obtenemos los datos que mandamos
+        $id = $_POST["id"];
         $name = $_POST["name"];
         $description = $_POST["description"];
+        $type = $_POST["type"];
         $price = $_POST["price"];
-        $urlImage = $_POST["imageUrl"];
-        if($name==""||$price=="0.00 €"){
+        $urlImage = $_POST["image"];
+        if($name==""||$price<1){
             $response['status']='404';
+            $response['error']='Aqui estoy yo si';
         }else{
-            $response["response"]="\n-Nombre producto:".$name."\n-Descripción producto:".$description."\n-Precio pruducto:".$price."\n-URL imagen:".$urlImage;
-            $response['status']='201';
+            try{
+                $conexion->exec("UPDATE productos SET name='".$name."',description='".$description."',price='".$price."',type='".$type."',image='".$urlImage."' WHERE id='".$id."'");
+                $response['status']='201';
+            }catch(Exception $e){
+                $response['status']='404';
+                $response['error']=$e;
+            }
+            
         }
         
         echo json_encode($response);
     }
+    
     //Borramos el producto
     if($_SERVER["REQUEST_METHOD"]=="DELETE"){
         //Obtenemos el id mediante la sessión que hemos creado antes
