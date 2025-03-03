@@ -1,27 +1,27 @@
-<?php  
+<?php 
     session_start();
-    //Array de prueba con nuestros datos de las reservas
-    $data = [
-        "name" => "Juan",
-        "mail" => "juan@juan.com",
-        "tel" => 685694640,
-        "persons" => 5,
-        "date" => date("Y-m-d", strtotime("+" . rand(1, 30) . " days")),
-        "time" => date("H:i", strtotime(rand(11, 23) . ":" . rand(0, 59)))
-    ];
+    require_once("../../utils/conexionBD.php");
+    $conexion = conexionBD();
     //Obtenemos el usuario de la persona, y devolvemos el contenido a mostrar en caso positivo
     if($_SERVER["REQUEST_METHOD"]=="GET"){
-        if(isset($_SESSION["ROL"])){
-            $response["status"]="200";
-            if($_SESSION["ROL"]=="ADMIN"||$_SESSION["ROL"]=="TRABAJADOR"){
-                $response["rol"]="worker";
-                foreach ($data as $key => $value) {
-                    $response[$key]=$value;
-                }
-            }else{
-                $response["rol"]="user";
+        if(isset($_SESSION["rol"])){ 
+            $response["rol"]="worker";
+            try{
+                $consulta = $conexion->query("SELECT * FROM reservas");
+                $response["status"]="200";
+                $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
+            }catch(Exception $e){
+                $response["status"]="404";
+                $response["error"]=$e;
             }
         }else{
+            if(isset($_SESSION["mail"])){
+                $consulta = $conexion->query("SELECT * FROM reservas WHERE mail='".$_SESSION["mail"]."'");
+                $response["status"]="200";
+                $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
+            }else{
+                $response["data"]="No data";
+            }
             $response["status"]="200";
             $response["rol"]="user";
         }
@@ -38,7 +38,14 @@
         $time = $_POST["time"];
         $response=[];
         if($name!=""&&$mail!=""&&$tel!=""&&$persons!=""&&$date!=""&&$time!=""){
-            $response['status']='201';
+            try{
+                $conexion->exec("INSERT INTO `reservas` (`nombre`, `mail`,`telefono`,`c_personas`,`fecha`,`hora`) VALUES ('".$name."','".$mail."','".$tel."','".$persons."','".$date."','".$time."')");
+                $response['status']='201';
+                $_SESSION["mail"]=$mail;
+            }catch(Exception $e){
+                $response['status']='404';
+                $response['error']=$e;
+            }
         }else{
             if($name==""){
                 $response['status']='404';

@@ -1,22 +1,28 @@
 loadData();
 function loadData(){
-    fetch("reservas.php",{
-        method:"GET",
-        headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-    }).then(response => response.json()).then(value=>{
-        if(value.status=="200"){
-            if(value.rol=="user"){
-                createViewUser();
+    $.ajax({
+        type: "GET",
+        url: "reservas.php",
+        dataType: "json",
+        success: function (response) {
+            if(response.status=="200"){
+                if(response.rol=="user"){
+                    if(response.data != "No data"){
+                        response.data.forEach(element => {
+                            createViewWorker(element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora);
+                        });
+                    }
+                    createViewUser();
+                }else{
+                    response.data.forEach(element => {
+                        createViewWorker(element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora);
+                    });
+                }
             }else{
-                createViewWorker(value.name,value.tel,value.mail,value.persons,value.date,value.time);
-                createViewWorker(value.name,value.tel,value.mail,value.persons,value.date,value.time);
+                alert("Ocurrio un error inexperado")
             }
-        }else{
-            alert("Ocurrio un error inexperado")
         }
-
     });
-    
 }
 function sentData(event){
     //Obtenemos los valores del formularios para mandarlos
@@ -28,37 +34,40 @@ function sentData(event){
     const time = document.getElementById("inputTime").value;
 
     event.preventDefault();
-    
     //Mandamos nuestros datos con un fetch
-    fetch("reservas.php",{
-        method:"POST",
-        headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-        body:`name=${encodeURIComponent(name)}&mail=${encodeURIComponent(mail)}&tel=${encodeURIComponent(tel)}&persons=${encodeURIComponent(persons)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`,
-    }).then(response => response.json()).then(value=>{
-       if(value.status=="201"){
-            alert("Los datos se han enviado con éxito");
-       }
-       else if(value.status=="404"){
-            if(value.name!=""){
-                document.getElementById("nameError").innerHTML=value.name;
-            }
-            if(value.mail!=""){
-                document.getElementById("mailError").innerHTML=value.mail;
-            }
-            if(value.tel!=""){
-                document.getElementById("telError").innerHTML=value.tel;
-            }
-            if(value.persons!=""){
-                document.getElementById("peopleError").innerHTML=value.persons;
-            }
-            if(value.date!=""){
-                document.getElementById("dateError").innerHTML=value.date;
-            }
-            if(value.time!=""){
-                document.getElementById("timeError").innerHTML=value.time;
-            }
-       }
+    $.ajax({
+        type: "POST",
+        url: "reservas.php",
+        data: {"name":name,"mail":mail,"tel":tel,"persons":persons,"date":date,"time":time},
+        dataType: "json",
+        success: function (response) {
+            if(response.status=="201"){
+                alert("Reserva confirmada!!");
+           }
+           else if(response.status=="404"){
+            console.log(response);
+                if(response.name!=""){
+                    document.getElementById("nameError").innerHTML=response.name;
+                }
+                if(response.mail!=""){
+                    document.getElementById("mailError").innerHTML=response.mail;
+                }
+                if(response.tel!=""){
+                    document.getElementById("telError").innerHTML=response.tel;
+                }
+                if(response.persons!=""){
+                    document.getElementById("peopleError").innerHTML=response.persons;
+                }
+                if(response.date!=""){
+                    document.getElementById("dateError").innerHTML=response.date;
+                }
+                if(response.time!=""){
+                    document.getElementById("timeError").innerHTML=response.time;
+                }
+           }
+        }
     });
+    
     
 };
 
