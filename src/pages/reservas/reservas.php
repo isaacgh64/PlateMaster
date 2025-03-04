@@ -7,7 +7,7 @@
         if(isset($_SESSION["rol"])){ 
             $response["rol"]="worker";
             try{
-                $consulta = $conexion->query("SELECT * FROM reservas");
+                $consulta = $conexion->query("SELECT * FROM reservas WHERE fecha = CURDATE() ORDER BY hora ASC");
                 $response["status"]="200";
                 $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
             }catch(Exception $e){
@@ -16,7 +16,7 @@
             }
         }else{
             if(isset($_SESSION["mail"])){
-                $consulta = $conexion->query("SELECT * FROM reservas WHERE mail='".$_SESSION["mail"]."'");
+                $consulta = $conexion->query("SELECT * FROM reservas WHERE mail='".$_SESSION["mail"]."' AND fecha >= CURDATE() ORDER BY fecha ASC");
                 $response["status"]="200";
                 $response["data"]=$consulta->fetchAll((PDO::FETCH_ASSOC));
             }else{
