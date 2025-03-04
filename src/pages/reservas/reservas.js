@@ -11,7 +11,7 @@ function loadData(){
                         const title = $('<h2>').text('Reservas');
                         $('#principal').append(title);
                         response.data.forEach(element => {
-                            createViewWorker(element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora,false);
+                            createViewWorker(element.id_reserva,element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora,false);
                             $('#principal').append("<br>");
                         });
                     }
@@ -21,11 +21,11 @@ function loadData(){
                     $('#principal').append(title);
                     if(response.data.length > 0){
                         response.data.forEach(element => {
-                            createViewWorker(element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora,true);
+                            createViewWorker(element.id_reserva,element.nombre,element.telefono,element.mail,element.c_personas,element.fecha,element.hora,true);
                             $('#principal').append("<br>");
                         });
                     }else{
-                        var p = $("<p></p>").html("No hay reservas para el día de hoy");
+                        var p = $("<p></p>").html("No hay reservas para el día de hoy").css("text_aling","center");
                         $('#principal').append(p);
                     }
                     
@@ -85,55 +85,55 @@ function sentData(event){
 };
 
 //Función que crea la vista de un trabajador de la empresa
-function createViewWorker(name,tlf,mail,persons,date,time,rol){
+function createViewWorker(id,name,tlf,mail,persons,date,time,rol){
     // Crear el contenedor principal
     const reservasContainer = $('<div>').addClass('reservas');
 
+    const idReserva = $("<p></p>").html(id).attr("id","idReserva").hide();
+
     // Crear los párrafos con sus datos
     const nameParagraph = $('<p>').html(`<b>Nombre:</b> ${name}`);
-    const emailParagraph = $('<p>').html(`<b>Correo electrónico:</b> ${mail}`).attr("id","mail");
+    const emailParagraph = $('<p>').html(`<b>Correo electrónico:</b> ${mail}`);
     const phoneParagraph = $('<p>').html(`<b>Teléfono:</b> ${tlf}`);
     const peopleParagraph = $('<p>').html(`<b>Cantidad de personas:</b> ${persons}`);
     const dateParagraph = $('<p>').html(`<b>Fecha:</b> ${date}`).attr("id","date");
     const timeParagraph = $('<p>').html(`<b>Hora:</b> ${time}`).attr("id","time");
 
     // Añadir los párrafos al contenedor
+    reservasContainer.append(idReserva);
     reservasContainer.append(nameParagraph);
     reservasContainer.append(emailParagraph);
     reservasContainer.append(phoneParagraph);
     reservasContainer.append(peopleParagraph);
     reservasContainer.append(dateParagraph);
     reservasContainer.append(timeParagraph);
-    /*if(rol){
+    if(rol){
         const btn = $('<button></button>').addClass('btn').html("Reserva atendida").attr("id","btn_aten");
         reservasContainer.append(btn);
-    }*/
+    }
 
     // Añadir el título y el contenedor al cuerpo de la página o a un elemento específico
     $('#principal').append(reservasContainer); 
 }
 
-/*$(document).on("click","#btn_aten",() => {
-    var mail = $("#mail").html().split("</b>")[1].trim();
-    var date = $("#date").html().split("</b>")[1].trim();
-    var time = $("#time").html().split("</b>")[1].trim();
-    console.log(mail);
+$(document).on("click","#btn_aten",() => {
+    var id = $("#idReserva").html().trim();
     $.ajax({
         type: "POST",
         url: "delete.php",
-        data: {"mail":mail,"date":date,"time":time},
+        data: {"id":id,},
         dataType: "json",
         success: function (response) {
             console.log(response);
             if(response.status == "202"){
                 alert("La reserva se atendió correctamente");
-                //window.location.href="reservas.html";
+                window.location.href="reservas.html";
             }else{
                console.log(response);
             }
         }
     });
-});*/
+});
 
 //Función que crea la vista de un usuario nomal
 function createViewUser(){
