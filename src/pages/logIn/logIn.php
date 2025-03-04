@@ -33,16 +33,24 @@
         if($user!=""&&$pass!=""){
             //echo "SELECT * FROM usuario WHERE user='".$user."'";
                 $consulta = $conexion->query("SELECT user,pass,rol FROM usuario WHERE user='".$user."'");
-                foreach ($consulta as $key => $value) {
-                    if(password_verify($pass,$value["pass"])){
-                        $response['status']='200';
-                        $_SESSION["user"]=$value["user"];
-                        $_SESSION["rol"]=$value["rol"];
-                    }else{
-                        $response['status']='404';
-                        $response['error']='El usuario o la contraseña están mal introducidos';
+                $consulta2 = $conexion->query("SELECT user,pass,rol FROM usuario WHERE user='".$user."'");
+                $array = $consulta2->fetchAll((PDO::FETCH_ASSOC));
+                if(sizeof($array)==1){
+                    foreach ($consulta as $key => $value) {
+                        if(password_verify($pass,$value["pass"])){
+                            $response['status']='200';
+                            $_SESSION["user"]=$value["user"];
+                            $_SESSION["rol"]=$value["rol"];
+                        }else{
+                            $response['status']='404';
+                            $response['error']='El usuario o la contraseña están mal introducidos';
+                        }
                     }
+                }else{
+                    $response['status']='404';
+                    $response['error']='El usuario o la contraseña están mal introducidos';
                 }
+                
         }else{
             if($user==""){
                 $response['status']='404';
