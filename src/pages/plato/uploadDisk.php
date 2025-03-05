@@ -10,6 +10,7 @@
         $urlImage = $_POST["image"];
         if($name==""||$price<1){
             $response['status']='404';
+            $response['error']='El nombre y precio son campos obligatorios';
         }else{
             try{
                 $conexion->exec("INSERT INTO `productos` (`name`, `description`,`price`,`type`,`image`) VALUES ('".$name."','".$description."','".$price."','".$type."','".$urlImage."')");

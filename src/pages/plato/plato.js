@@ -44,7 +44,7 @@ function loadData(){
                     }
                 });               //Configuramos la página según el rol
             }else if(response.status=="201"){
-                createView("","","","","");
+                createView("","","","","","entrantes");
                 var btnCreate = $("<button></button>").attr("id","btnCreate").attr("class","btnUpdate").attr("onClick","createProduct()").html("Publicar producto");
                 $("#principal").append(btnCreate);
             }else{
@@ -71,12 +71,13 @@ function createView(id,name,image,description,price,type){
     var select = $("<select></select>").attr("id","type");
     var option1 = $("<option></option>").html("Entrantes").val("entrantes");
     var option2 = $("<option></option>").html("Carnes").val("carne");
-    var option3 = $("<option></option>").html("Pescados").val("pescado");
-    var option4 = $("<option></option>").html("Postres").val("postre");
+    var option3 =  $("<option></option>").html("Pescados").val("pescado");
+    var  option4 = $("<option></option>").html("Postres").val("postre");
     $(select).append(option1);
     $(select).append(option2);
     $(select).append(option3);
     $(select).append(option4);
+    $(select).val(type);
     $(divTexto).append(select);
     var inputPrice = $("<input>").attr("id","precio").attr("value",`${price} €`);
     divTexto.append(inputPrice);
@@ -145,7 +146,7 @@ function createProduct(){
                 alert("Producto añadido a la Base de datos con éxito");
                 reload();
             }else{
-                alert("Ocurrió un error, intentelo de nuevo");
+                alert(`Ocurrió un error, intentelo de nuevo ${response.error}`);
             }
         }
     });
