@@ -17,6 +17,13 @@ function loadData(){
                         var btnUpdate = $("<button></button>").attr("id","btnUpdate").attr("class","btnUpdate").attr("onClick","UpdateProduct()").html("Actualizar producto");
                         $("#principal").append(btnUpdate);
                         $("#principal").append(btnDelete);
+                    }else if(response.rol==2){
+                         //Creamos un input que está referido al nombre del producto
+                         createView(element.id,element.name,element.image,element.description,element.price,element.type);
+                         //Creamos nuestros botones
+                         var btnUpdate = $("<button></button>").attr("id","btnUpdate").attr("class","btnUpdate").attr("onClick","UpdateProduct()").html("Actualizar producto");
+                         $("#principal").append(btnUpdate);
+                         
                     }else{
                         //Creamos nuestro h2 y lo añadimos a nuestro div principal
                         var h2 = $("<h2></h2>").html(element.name);
